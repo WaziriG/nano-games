@@ -1,0 +1,184 @@
+
+
+  <!-- 1 · POWER ON — flow -->
+  <section class="scene scene--boot">
+    <div class="boot" data-sc-in data-sc-stagger="45">
+      <p class="boot__line font-vt">NANO BIOS 2.6 — POWER ON</p>
+      <p class="boot__line font-vt">VIDEO ........ <b class="boot__ok">CRT OK</b></p>
+      <p class="boot__line font-vt">CARTRIDGE SLOTS ........ <b>8/8 LOADED</b></p>
+      <p class="boot__line font-vt" id="bootLb">LEADERBOARD LINK ........ <b>CHECKING…</b></p>
+      <p class="boot__line font-vt">SOUND ........ <b>OFF (QUIET ARCADE)</b></p>
+      <p class="boot__line font-vt">CREDITS ........ <b class="boot__ok">FREE PLAY</b></p>
+      <h1 class="boot__title font-pixel glow-aqua">NANO GAMES</h1>
+      <p class="boot__sub font-vt">An arcade built from scratch. <b>Keep scrolling. The machine is on.</b></p>
+    </div>
+  </section>
+
+  <!-- 2 · ATTRACT MODE — pin -->
+  <section class="scene scene--attract" data-sc-act="pin" data-sc-span="1.5">
+    <div data-sc-stage>
+      <div class="attract">
+        <div class="attract__copy">
+          <div class="attract__block" data-sc-cue="0 0.97 0">
+            <p class="scene__label">NOW SHOWING</p>
+            <h2 class="attract__h font-pixel glow-aqua">AQUATIC SURVIVAL</h2>
+            <p class="attract__tag font-vt">Survive the deep. Battle the bosses.</p>
+          </div>
+          <p class="attract__truth font-vt" data-sc-cue="0.30 0.62">That's <b>real gameplay</b> on the screen. The actual game, running.</p>
+          <p class="attract__truth font-vt" data-sc-cue="0.58 0.97">Every cabinet in this arcade is <b>original — coded from scratch.</b></p>
+        </div>
+        <figure class="crt">
+          <video class="crt__video" src="/front/cab-aqua.mp4" poster="/front/cab-aqua.jpg" muted playsinline loop preload="metadata" data-vis></video>
+          <figcaption class="crt__plate font-pixel">CABINET 01 · AQUATIC SURVIVAL</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE AISLE — pan -->
+  <section class="scene scene--aisle" data-sc-act="pan" data-sc-span="2.5">
+    <div data-sc-stage>
+      <div class="aisle" data-sc-pan="0.06">
+        <div class="aisle__lead">
+          <p class="scene__label">KEEP WALKING</p>
+          <h2 class="font-pixel glow-aqua">THE AISLE</h2>
+          <p class="font-vt">Seven more cabinets. All original. All running.</p>
+        </div>
+
+        <article class="cab" style="--cab:#8fd07a; --cabrgb:143,208,122; --i:1">
+          <img class="cab__art" src="/front/marq-slime.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">NANO SLIME</div>
+          <div class="cab__screen"><video src="/front/cab-slime.mp4" poster="/front/cab-slime.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">GROWTH</span><span class="cab__tag font-vt">Eat. Grow. Evolve.</span></div>
+        </article>
+
+        <article class="cab" style="--cab:#ff6b6b; --cabrgb:255,107,107; --i:2">
+          <img class="cab__art" src="/front/marq-elemental.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">ELEMENTAL TRIALS</div>
+          <div class="cab__screen"><video src="/front/cab-elemental.mp4" poster="/front/cab-elemental.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">BOSS RUSH</span><span class="cab__tag font-vt">Seven guardians. One gauntlet.</span></div>
+        </article>
+
+        <article class="cab" style="--cab:#ffd166; --cabrgb:255,209,102; --i:3">
+          <img class="cab__art" src="/front/marq-haunted.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">HAUNTED MANSION</div>
+          <div class="cab__screen"><video src="/front/cab-haunted.mp4" poster="/front/cab-haunted.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">SURVIVAL HORROR</span><span class="cab__tag font-vt">Four rooms. One way out.</span></div>
+        </article>
+
+        <article class="cab" style="--cab:#ff9f43; --cabrgb:255,159,67; --i:4">
+          <img class="cab__art" src="/front/marq-luffy.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">LUFFY'S QUEST</div>
+          <div class="cab__screen"><video src="/front/cab-luffy.mp4" poster="/front/cab-luffy.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">SURVIVAL</span><span class="cab__tag font-vt">Become King of the Pirates.</span></div>
+        </article>
+
+        <article class="cab" style="--cab:#a78bfa; --cabrgb:167,139,250; --i:5">
+          <img class="cab__art" src="/front/marq-quad.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">QUADRATIC QUEST</div>
+          <div class="cab__screen"><video src="/front/cab-quad.mp4" poster="/front/cab-quad.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">MATH RUNNER</span><span class="cab__tag font-vt">Solve. Blast through the gate.</span></div>
+        </article>
+
+        <article class="cab" style="--cab:#e05340; --cabrgb:224,83,64; --i:6">
+          <img class="cab__art" src="/front/marq-anthill.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">ANTHILL</div>
+          <div class="cab__screen"><video src="/front/cab-anthill.mp4" poster="/front/cab-anthill.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">IDLE TAPPER</span><span class="cab__tag font-vt">Tap the fruit. Grow the colony.</span></div>
+        </article>
+
+        <article class="cab" style="--cab:#3fd2e6; --cabrgb:63,210,230; --i:7">
+          <img class="cab__art" src="/front/marq-forge.jpg" alt="" width="800" height="200">
+          <div class="cab__marquee">SPRITE FORGE</div>
+          <div class="cab__screen"><video src="/front/cab-forge.mp4" poster="/front/cab-forge.jpg" muted playsinline loop preload="none" data-vis></video></div>
+          <div class="cab__plate"><span class="cab__genre">TOOL</span><span class="cab__tag font-vt">Draw your own monsters.</span></div>
+        </article>
+
+        <div class="aisle__note">
+          <p class="font-vt">Watch that last screen closely — the little green pilot being drawn in there is about to matter.</p>
+          <a class="font-pixel" href="#game-select">PRESS START</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · HIGH SCORES — reveal + count, hosted in a short pin -->
+  <section class="scene scene--scores" data-sc-act="pin" data-sc-span="1.3">
+    <div data-sc-stage>
+      <div class="scores">
+        <header class="scores__head" data-sc-cue="0 0.97 0">
+          <p class="scene__label">TODAY'S STANDINGS</p>
+          <h2 class="font-pixel glow-gold">HIGH SCORES</h2>
+          <p class="scores__mode font-vt" id="lbMode">AS OF AUG 31 2026</p>
+        </header>
+
+        <div class="scores__tablewrap" data-sc-reveal="up" data-sc-reveal-at="0.04 0.38">
+          <div class="scores__board" id="board-elemental-trials">
+            <p class="scores__game">ELEMENTAL TRIALS</p>
+            <div class="scores__row"><span class="r font-vt">1</span><span class="n font-vt">CYRUS</span><span class="s font-vt sc-nums" data-sc-count="0 5,250" data-sc-count-at="0.16 0.5">0</span><span class="u font-vt">SCORE</span></div>
+            <div class="scores__row"><span class="r font-vt">2</span><span class="n font-vt">DEKE</span><span class="s font-vt">2,500</span><span class="u font-vt">SCORE</span></div>
+            <div class="scores__row"><span class="r font-vt">3</span><span class="n font-vt">CYRUS</span><span class="s font-vt">1,750</span><span class="u font-vt">SCORE</span></div>
+            <div class="scores__row scores__row--you"><span class="r font-vt">?</span><span class="n font-vt">YOUR NAME HERE</span><span class="s font-vt">— — —</span><span class="u font-vt"></span></div>
+          </div>
+          <div class="scores__board" id="board-haunted-mansion">
+            <p class="scores__game">HAUNTED MANSION</p>
+            <div class="scores__row"><span class="r font-vt">1</span><span class="n font-vt">DEKE</span><span class="s font-vt">3,150</span><span class="u font-vt">SCORE</span></div>
+            <div class="scores__row"><span class="r font-vt">2</span><span class="n font-vt">WAZ</span><span class="s font-vt">4</span><span class="u font-vt">SCORE</span></div>
+          </div>
+          <div class="scores__board" id="board-aqua-survivor">
+            <p class="scores__game">AQUATIC SURVIVAL</p>
+            <div class="scores__row"><span class="r font-vt">1</span><span class="n font-vt">DEKE</span><span class="s font-vt">77</span><span class="u font-vt">TIME</span></div>
+            <div class="scores__row"><span class="r font-vt">2</span><span class="n font-vt">DEKE</span><span class="s font-vt">53</span><span class="u font-vt">TIME</span></div>
+            <div class="scores__row"><span class="r font-vt">3</span><span class="n font-vt">WAZ</span><span class="s font-vt">45</span><span class="u font-vt">TIME</span></div>
+          </div>
+          <p class="scores__empty font-vt" id="lbEmpty"><b>NANO SLIME · ANTHILL · LUFFY'S QUEST · QUADRATIC QUEST</b> — no scores yet. Be first.</p>
+        </div>
+
+        <p class="scores__dare font-vt" data-sc-cue="0.55 0.95">Beat one, and your name goes up in lights.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · READY? — authored silence -->
+  <section class="scene scene--ready">
+    <div class="ready" data-sc-in>
+      <p class="ready__p1 font-pixel">PLAYER 1</p>
+      <p class="ready__q font-vt">READY?<span class="blinkbar">█</span></p>
+    </div>
+  </section>
+
+  <!-- 6 · NANO PILOT — THE PEAK. The wheel is the joystick. -->
+  <section class="scene scene--pilot" data-sc-act="pin" data-sc-span="3.5" id="pilot">
+    <div data-sc-stage class="pilot">
+      <img class="pilot__bg" src="/front/pilot-nebula.jpg" alt="" width="1600" height="900">
+      <canvas id="pilotCanvas" role="img" aria-label="NANO PILOT — a tiny game. Scrolling steers the green pilot past the rocks."></canvas>
+      <div class="pilot__hud font-pixel"><span>SCORE <span class="gold" id="pilotScore">0</span></span><span id="pilotState">NANO PILOT</span></div>
+      <div class="pilot__intro" data-sc-cue="0 0.2 0">
+        <p class="scene__label">NO BUTTONS. NO JOYSTICK.</p>
+        <h2 class="font-pixel glow-aqua">THE WHEEL IS THE JOYSTICK</h2>
+        <p class="font-vt">Scroll to steer. Dodge the rocks. That's it — you're playing.</p>
+      </div>
+      <div class="pilot__done" data-sc-cue="0.72 0.99 0.1 0.1">
+        <div>
+          <p class="d1 font-pixel">RUN COMPLETE</p>
+          <p class="d2 font-vt">SCORE <span id="pilotFinal">0</span></p>
+        </div>
+      </div>
+      <div class="pilot__rm"><p class="font-vt">Motion is off, so the pilot sleeps. Your games are just below.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · SERVICE MODE — the only quiet act -->
+  <section class="scene scene--service">
+    <div class="sc-wrap">
+      <div class="service" data-sc-in data-sc-stagger="80">
+        <p class="service__label font-vt">— SERVICE MODE —</p>
+        <p class="font-vt">CABINET: NANO GAMES ARCADE</p>
+        <p class="font-vt">GAMES: 8 · ALL ORIGINAL · CODED FROM SCRATCH</p>
+        <p class="font-vt service__run" id="serviceRun" hidden>YOUR LAST RUN: <span id="serviceScore">0</span></p>
+        <p class="service__truth font-vt">Every game on this machine was designed, coded and shipped by one kid.</p>
+        <p class="service__credit font-pixel">DESIGNED &amp; BUILT BY CYRUS</p>
+      </div>
+    </div>
+  </section>
+
