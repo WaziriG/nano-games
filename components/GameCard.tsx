@@ -47,7 +47,7 @@ export function GameCard({ game }: { game: Game }) {
         <span
           className="font-pixel rounded px-2 py-1"
           style={{
-            fontSize: '7px',
+            fontSize: '12px',
             color: game.accentColor,
             background: `${game.accentColor}18`,
             border: `1px solid ${game.borderColor}`,
@@ -55,7 +55,7 @@ export function GameCard({ game }: { game: Game }) {
         >
           {game.genre}
         </span>
-        <span className="font-pixel" style={{ fontSize: '7px', color: 'var(--muted)' }}>
+        <span className="font-pixel" style={{ fontSize: '12px', color: 'var(--muted)' }}>
           {game.players}
         </span>
       </div>
@@ -103,7 +103,7 @@ export function GameCard({ game }: { game: Game }) {
           <div
             className="font-pixel text-center rounded py-3 px-4 pulse-glow"
             style={{
-              fontSize: '10px',
+              fontSize: '12px',
               color: '#080e14',
               background: `linear-gradient(180deg, ${game.accentColor}, rgba(63,210,230,0.7))`,
               border: `2px solid var(--foam)`,
@@ -116,7 +116,7 @@ export function GameCard({ game }: { game: Game }) {
           <div
             className="font-pixel text-center rounded py-3 px-4"
             style={{
-              fontSize: '10px',
+              fontSize: '12px',
               color: 'var(--muted)',
               border: '2px dashed rgba(74,106,128,0.5)',
               letterSpacing: '2px',

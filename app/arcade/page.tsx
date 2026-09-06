@@ -1,5 +1,8 @@
 import { GameCard } from '@/components/GameCard'
+import type { Metadata } from 'next'
 import { GAMES, toCardGame } from '@/lib/games'
+
+export const metadata: Metadata = { title: 'Arcade' }
 
 export default function ArcadeLobby() {
   return (
@@ -7,6 +10,7 @@ export default function ArcadeLobby() {
       className="min-h-screen flex flex-col items-center"
       style={{ background: 'radial-gradient(ellipse at 50% 0%, #0d2040 0%, #080e14 60%)' }}
     >
+      <a href="#main" className="skip-link">Skip to the games</a>
       {/* Header */}
       <header className="w-full flex flex-col items-center pt-12 pb-6 px-4">
         <div
@@ -29,7 +33,7 @@ export default function ArcadeLobby() {
             className="flex-1 h-px"
             style={{ background: 'linear-gradient(to right, transparent, rgba(63,210,230,0.5))' }}
           />
-          <span className="font-pixel text-xs" style={{ color: 'var(--aqua)', fontSize: '9px' }}>
+          <span className="font-pixel text-xs" style={{ color: 'var(--aqua)', fontSize: '12px' }}>
             SELECT YOUR GAME
           </span>
           <div
@@ -40,7 +44,7 @@ export default function ArcadeLobby() {
       </header>
 
       {/* Game Grid */}
-      <main className="flex-1 w-full max-w-5xl px-4 pb-16">
+      <main id="main" tabIndex={-1} className="flex-1 w-full max-w-5xl px-4 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
           {GAMES.map(game => (
             <GameCard key={game.slug} game={toCardGame(game)} />
@@ -63,7 +67,7 @@ export default function ArcadeLobby() {
       <footer className="w-full text-center pb-8 px-4">
         <div
           className="font-pixel"
-          style={{ fontSize: '8px', color: 'var(--muted)', letterSpacing: '2px' }}
+          style={{ fontSize: '12px', color: 'var(--muted)', letterSpacing: '2px' }}
         >
           DESIGNED &amp; BUILT BY CYRUS &nbsp;·&nbsp; NANO GAMES © 2026
         </div>
@@ -81,7 +85,7 @@ function Stat({ label, value }: { label: string; value: string }) {
       <div className="font-pixel neon-aqua" style={{ fontSize: '16px' }}>
         {value}
       </div>
-      <div className="font-pixel mt-1" style={{ fontSize: '7px', color: 'var(--muted)', letterSpacing: '1px' }}>
+      <div className="font-pixel mt-1" style={{ fontSize: '12px', color: 'var(--muted)', letterSpacing: '1px' }}>
         {label}
       </div>
     </div>

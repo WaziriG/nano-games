@@ -127,6 +127,7 @@ export function GameFrame({ slug }: { slug: string }) {
 
   return (
     <div className="flex flex-col" style={{ height: '100dvh', background: '#080e14' }}>
+      <a href="#main" className="skip-link">Skip to the game</a>
       {/* Top bar */}
       <div
         className="flex items-center justify-between px-4 py-2 shrink-0"
@@ -134,15 +135,15 @@ export function GameFrame({ slug }: { slug: string }) {
       >
         <Link
           href="/"
-          className="font-pixel flex items-center gap-2 no-underline"
-          style={{ fontSize: '9px', color: accent, letterSpacing: '1px' }}
+          className="font-pixel flex items-center gap-2 no-underline min-h-11"
+          style={{ fontSize: '12px', color: accent, letterSpacing: '1px' }}
         >
           ◄ ARCADE
         </Link>
 
         <div
           className="font-pixel text-center"
-          style={{ fontSize: 'clamp(8px,1.5vw,11px)', color: accent, letterSpacing: '2px' }}
+          style={{ fontSize: 'clamp(12px,1.5vw,14px)', color: accent, letterSpacing: '2px' }}
         >
           {game.shortTitle}
         </div>
@@ -151,9 +152,9 @@ export function GameFrame({ slug }: { slug: string }) {
           <div className="flex gap-3">
             <button
               onClick={openLeaderboard}
-              className="font-pixel rounded px-3 py-1 cursor-pointer"
+              className="font-pixel rounded px-3 py-2 min-h-11 cursor-pointer"
               style={{
-                fontSize: '8px',
+                fontSize: '12px',
                 color: accent,
                 background: `rgba(${rgb},0.1)`,
                 border: `1px solid rgba(${rgb},0.4)`,
@@ -165,9 +166,9 @@ export function GameFrame({ slug }: { slug: string }) {
             {(board.submitMode === 'on-demand' || (gameResult && !showScoreModal)) && (
               <button
                 onClick={board.submitMode === 'on-demand' ? requestScore : () => setShowScoreModal(true)}
-                className="font-pixel rounded px-3 py-1 cursor-pointer"
+                className="font-pixel rounded px-3 py-2 min-h-11 cursor-pointer"
                 style={{
-                  fontSize: '8px',
+                  fontSize: '12px',
                   color: '#080e14',
                   background: accent,
                   border: `1px solid ${game.hoverBorder}`,
@@ -184,7 +185,7 @@ export function GameFrame({ slug }: { slug: string }) {
       </div>
 
       {/* Game iframe */}
-      <div className="flex-1 relative">
+      <main id="main" tabIndex={-1} className="flex-1 relative">
         <iframe
           ref={iframeRef}
           src={`/games/${slug}.html`}
@@ -193,7 +194,7 @@ export function GameFrame({ slug }: { slug: string }) {
           allow="fullscreen"
           sandbox="allow-scripts allow-same-origin allow-downloads allow-popups"
         />
-      </div>
+      </main>
 
       {/* Score submission modal */}
       {board && labels && showScoreModal && gameResult && (
@@ -208,7 +209,7 @@ export function GameFrame({ slug }: { slug: string }) {
           >
             {!submitted ? (
               <>
-                <div className="font-pixel text-center mb-1" style={{ fontSize: '11px', color: accent, letterSpacing: '2px' }}>
+                <div className="font-pixel text-center mb-1" style={{ fontSize: '12px', color: accent, letterSpacing: '2px' }}>
                   {gameResult.reason === 'win' ? board.winText : board.loseText}
                 </div>
                 <div className="font-vt text-center mb-4" style={{ fontSize: '20px', color: 'var(--foam)', opacity: 0.7 }}>
@@ -234,7 +235,7 @@ export function GameFrame({ slug }: { slug: string }) {
                     autoFocus
                     className="w-full rounded px-4 py-3 font-pixel outline-none"
                     style={{
-                      fontSize: '10px',
+                      fontSize: '12px',
                       background: '#080e14',
                       border: `2px solid rgba(${rgb},0.4)`,
                       color: accent,
@@ -253,7 +254,7 @@ export function GameFrame({ slug }: { slug: string }) {
                     disabled={submitting || !submitName.trim()}
                     className="font-pixel rounded py-3 cursor-pointer disabled:opacity-40"
                     style={{
-                      fontSize: '10px',
+                      fontSize: '12px',
                       color: '#080e14',
                       background: `linear-gradient(180deg, ${game.hoverBorder}, ${accent})`,
                       border: '2px solid var(--foam)',
@@ -266,7 +267,7 @@ export function GameFrame({ slug }: { slug: string }) {
                     type="button"
                     onClick={() => setShowScoreModal(false)}
                     className="font-pixel text-center cursor-pointer"
-                    style={{ fontSize: '8px', color: 'var(--muted)', background: 'none', border: 'none', letterSpacing: '1px' }}
+                    style={{ fontSize: '12px', color: 'var(--muted)', background: 'none', border: 'none', letterSpacing: '1px' }}
                   >
                     SKIP
                   </button>
@@ -275,7 +276,7 @@ export function GameFrame({ slug }: { slug: string }) {
             ) : (
               <div className="text-center">
                 <div style={{ fontSize: '48px', marginBottom: '8px' }}>🏆</div>
-                <div className="font-pixel mb-2" style={{ fontSize: '10px', color: accent, letterSpacing: '2px' }}>
+                <div className="font-pixel mb-2" style={{ fontSize: '12px', color: accent, letterSpacing: '2px' }}>
                   SCORE SAVED!
                 </div>
                 <div className="font-vt mb-4" style={{ fontSize: '20px', color: 'var(--foam)', opacity: 0.8 }}>
@@ -285,14 +286,14 @@ export function GameFrame({ slug }: { slug: string }) {
                   <button
                     onClick={() => { setShowScoreModal(false); setShowLeaderboard(true) }}
                     className="font-pixel rounded px-4 py-2 cursor-pointer"
-                    style={{ fontSize: '8px', color: accent, background: `rgba(${rgb},0.15)`, border: `1px solid rgba(${rgb},0.5)` }}
+                    style={{ fontSize: '12px', color: accent, background: `rgba(${rgb},0.15)`, border: `1px solid rgba(${rgb},0.5)` }}
                   >
                     VIEW SCORES
                   </button>
                   <button
                     onClick={() => setShowScoreModal(false)}
                     className="font-pixel rounded px-4 py-2 cursor-pointer"
-                    style={{ fontSize: '8px', color: accent, background: `rgba(${rgb},0.1)`, border: `1px solid rgba(${rgb},0.4)` }}
+                    style={{ fontSize: '12px', color: accent, background: `rgba(${rgb},0.1)`, border: `1px solid rgba(${rgb},0.4)` }}
                   >
                     KEEP PLAYING
                   </button>
@@ -318,7 +319,7 @@ export function GameFrame({ slug }: { slug: string }) {
               className="flex items-center justify-between px-6 py-4"
               style={{ background: 'rgba(8,14,20,0.8)', borderBottom: `1px solid rgba(${rgb},0.2)` }}
             >
-              <div className="font-pixel" style={{ fontSize: '10px', color: accent, letterSpacing: '2px' }}>
+              <div className="font-pixel" style={{ fontSize: '12px', color: accent, letterSpacing: '2px' }}>
                 🏆 TOP SCORES
               </div>
               <div className="font-vt" style={{ fontSize: '16px', color: 'var(--muted)' }}>
@@ -327,7 +328,7 @@ export function GameFrame({ slug }: { slug: string }) {
               <button
                 onClick={() => setShowLeaderboard(false)}
                 className="font-pixel cursor-pointer"
-                style={{ fontSize: '10px', color: 'var(--muted)', background: 'none', border: 'none' }}
+                style={{ fontSize: '12px', color: 'var(--muted)', background: 'none', border: 'none' }}
               >
                 ✕
               </button>
@@ -335,12 +336,12 @@ export function GameFrame({ slug }: { slug: string }) {
 
             <div className="overflow-y-auto" style={{ maxHeight: '420px' }}>
               {loadingLB ? (
-                <div className="font-pixel text-center py-12" style={{ fontSize: '9px', color: 'var(--muted)' }}>
+                <div className="font-pixel text-center py-12" style={{ fontSize: '12px', color: 'var(--muted)' }}>
                   LOADING...
                 </div>
               ) : leaderboard.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="font-pixel mb-2" style={{ fontSize: '9px', color: 'var(--muted)' }}>NO SCORES YET</div>
+                  <div className="font-pixel mb-2" style={{ fontSize: '12px', color: 'var(--muted)' }}>NO SCORES YET</div>
                   <div className="font-vt" style={{ fontSize: '18px', color: accent, opacity: 0.7 }}>Be the first to submit!</div>
                 </div>
               ) : (
@@ -350,7 +351,7 @@ export function GameFrame({ slug }: { slug: string }) {
                       <tr style={{ borderBottom: `1px solid rgba(${rgb},0.2)` }}>
                         {['#', 'PLAYER', labels.score, labels.kills, labels.level].map(h => (
                           <th key={h} className="font-pixel px-4 py-2 text-left"
-                            style={{ fontSize: '7px', color: `rgba(${rgb},0.6)`, letterSpacing: '1px' }}>
+                            style={{ fontSize: '12px', color: `rgba(${rgb},0.6)`, letterSpacing: '1px' }}>
                             {h}
                           </th>
                         ))}
@@ -366,20 +367,20 @@ export function GameFrame({ slug }: { slug: string }) {
                           }}
                         >
                           <td className="font-pixel px-4 py-3"
-                            style={{ fontSize: '9px', color: i === 0 ? accent : i === 1 ? '#aaa' : i === 2 ? '#cd7f32' : 'var(--muted)' }}>
+                            style={{ fontSize: '12px', color: i === 0 ? accent : i === 1 ? '#aaa' : i === 2 ? '#cd7f32' : 'var(--muted)' }}>
                             {i === 0 ? '👑' : `${i + 1}`}
                           </td>
                           <td className="font-pixel px-4 py-3"
-                            style={{ fontSize: '9px', color: 'var(--foam)', opacity: i === 0 ? 1 : 0.8 }}>
+                            style={{ fontSize: '12px', color: 'var(--foam)', opacity: i === 0 ? 1 : 0.8 }}>
                             {entry.player_name.toUpperCase()}
                           </td>
-                          <td className="font-pixel px-4 py-3" style={{ fontSize: '9px', color: accent }}>
+                          <td className="font-pixel px-4 py-3" style={{ fontSize: '12px', color: accent }}>
                             {entry.score}
                           </td>
-                          <td className="font-pixel px-4 py-3" style={{ fontSize: '9px', color: 'var(--foam)', opacity: 0.7 }}>
+                          <td className="font-pixel px-4 py-3" style={{ fontSize: '12px', color: 'var(--foam)', opacity: 0.7 }}>
                             {entry.kills}
                           </td>
-                          <td className="font-pixel px-4 py-3" style={{ fontSize: '9px', color: 'var(--foam)', opacity: 0.7 }}>
+                          <td className="font-pixel px-4 py-3" style={{ fontSize: '12px', color: 'var(--foam)', opacity: 0.7 }}>
                             {entry.level}
                           </td>
                         </tr>
@@ -400,7 +401,7 @@ export function GameFrame({ slug }: { slug: string }) {
               <button
                 onClick={fetchLeaderboard}
                 className="font-pixel cursor-pointer"
-                style={{ fontSize: '7px', color: accent, background: 'none', border: 'none' }}
+                style={{ fontSize: '12px', color: accent, background: 'none', border: 'none' }}
               >
                 ↻ REFRESH
               </button>
@@ -416,7 +417,7 @@ function StatCell({ label, value, accent }: { label: string; value: string; acce
   return (
     <div>
       <div className="font-pixel" style={{ fontSize: '14px', color: accent }}>{value}</div>
-      <div className="font-pixel mt-1" style={{ fontSize: '7px', color: 'var(--muted)', letterSpacing: '1px' }}>{label}</div>
+      <div className="font-pixel mt-1" style={{ fontSize: '12px', color: 'var(--muted)', letterSpacing: '1px' }}>{label}</div>
     </div>
   )
 }

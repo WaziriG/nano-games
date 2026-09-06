@@ -5,7 +5,7 @@ import './globals.css'
 const GA_MEASUREMENT_ID = 'G-ZG78CHJZE5'
 
 export const metadata: Metadata = {
-  title: 'Nano Games',
+  title: { default: 'Nano Games', template: '%s · Nano Games' },
   description: 'Nano Games Arcade — original games built from scratch',
   icons: { icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><text y="32" font-size="32">🎮</text></svg>' },
 }

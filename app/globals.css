@@ -11,7 +11,7 @@
   --gold-dim: #8a6a20;
   --coral: #ff6b6b;
   --foam: #dffaff;
-  --muted: #4a6a80;
+  --muted: #7392ab;
   --border: rgba(63, 210, 230, 0.3);
   --border-hover: rgba(125, 249, 255, 0.8);
 }
@@ -125,3 +125,8 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--deep); }
 ::-webkit-scrollbar-thumb { background: var(--aqua-dim); border-radius: 3px; }
+
+/* HIG pass · Sep 6 2026 */
+.skip-link { position: absolute; left: 0; top: 0; z-index: 10000; display: inline-flex; align-items: center; min-height: 44px; padding: 0.75rem 1rem; background: var(--aqua); color: var(--deep); font-family: 'Press Start 2P', monospace; font-size: 12px; text-decoration: none; transform: translateY(-200%); }
+.skip-link:focus { transform: none; outline: 3px solid var(--foam); outline-offset: 2px; }
+@layer base { button { min-height: 2.75rem; } }
