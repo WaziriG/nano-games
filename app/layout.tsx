@@ -5,8 +5,16 @@ import './globals.css'
 const GA_MEASUREMENT_ID = 'G-ZG78CHJZE5'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nanogames.app'),
   title: { default: 'Nano Games', template: '%s · Nano Games' },
   description: 'Nano Games Arcade — original games built from scratch',
+  openGraph: {
+    type: 'website',
+    siteName: 'Nano Games',
+    title: 'Nano Games',
+    description: 'Nano Games Arcade — original games built from scratch',
+    url: 'https://nanogames.app',
+  },
   icons: { icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><text y="32" font-size="32">🎮</text></svg>' },
 }
 
