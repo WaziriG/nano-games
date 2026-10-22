@@ -37,6 +37,24 @@ export interface GameDef {
 
 export const GAMES: GameDef[] = [
   {
+    slug: 'bug-fight',
+    title: 'BUG FIGHT',
+    shortTitle: 'BUG FIGHT',
+    tagline: 'Pick a bug. Beat the other four.',
+    description:
+      'An arena brawler on the forest floor. Choose from five real bugs, each with its own special move, and fight your way up the ladder. Every fight is best of three.',
+    icon: '🪲',
+    iconBg: '🍂',
+    accentColor: '#f5b52e',
+    accentRgb: '245, 181, 46',
+    hoverBorder: 'rgba(255, 210, 120, 0.9)',
+    live: true,
+    genre: 'ARENA BRAWLER',
+    players: '1P',
+    /* Wins and losses only; there is no score yet to rank on. */
+    leaderboard: null,
+  },
+  {
     slug: 'anthill',
     title: 'ANTHILL',
     shortTitle: 'ANTHILL',

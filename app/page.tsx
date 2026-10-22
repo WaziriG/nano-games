@@ -28,7 +28,7 @@ export default function FrontPage() {
             <header className="select__head" data-sc-in="">
               <p className="scene__label">GAME SELECT</p>
               <h2 className="font-pixel glow-aqua">PICK YOUR CABINET</h2>
-              <p className="font-vt">8 games. Free play. Right now.</p>
+              <p className="font-vt">{GAMES.length} games. Free play. Right now.</p>
             </header>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {GAMES.map(game => (
