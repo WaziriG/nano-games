@@ -14,6 +14,10 @@ export interface LeaderboardConfig {
   /* Games that shipped before the shared frame each emit their own event
      name. New games use the standard 'nano-game-over'. */
   legacyEventType?: string
+  /* When the level column records a choice rather than progress (which bug
+     you played), its display names; value 1 is the first name. The board
+     then gets a tab per name. */
+  levelNames?: string[]
 }
 
 export interface GameDef {
@@ -51,8 +55,15 @@ export const GAMES: GameDef[] = [
     live: true,
     genre: 'ARENA BRAWLER',
     players: '1P',
-    /* Wins and losses only; there is no score yet to rank on. */
-    leaderboard: null,
+    leaderboard: {
+      /* Cyrus wants the best player per animal, so the bug played rides in
+         the level column and the board tabs by it. */
+      statLabels: { score: 'SCORE', kills: 'WINS', level: 'BUG' },
+      limits: { maxScore: 2000000, maxKills: 999, maxLevel: 5 },
+      winText: 'BUG FIGHT CHAMPION',
+      loseText: 'KNOCKED OUT',
+      levelNames: ['DRAGONFLY', 'SPIDER', 'TRAP-JAW ANT', 'EMERALD WASP', 'SILVER ANT'],
+    },
   },
   {
     slug: 'anthill',

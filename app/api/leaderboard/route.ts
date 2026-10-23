@@ -13,12 +13,22 @@ export async function GET(req: NextRequest) {
   const game = req.nextUrl.searchParams.get('game') ?? ''
   const limit = Math.min(parseInt(req.nextUrl.searchParams.get('limit') ?? '15', 10) || 15, 50)
 
-  if (!boardFor(game)) {
+  const board = boardFor(game)
+  if (!board) {
     return NextResponse.json({ error: 'Unknown game' }, { status: 400 })
   }
 
+  const levelParam = req.nextUrl.searchParams.get('level')
+  let level: number | undefined
+  if (levelParam !== null) {
+    level = Number(levelParam)
+    if (!board.levelNames || !Number.isInteger(level) || level < 1 || level > board.levelNames.length) {
+      return NextResponse.json({ error: 'Invalid level' }, { status: 400 })
+    }
+  }
+
   try {
-    const entries = await getTopScores(game, limit)
+    const entries = await getTopScores(game, limit, level)
     return NextResponse.json({ entries })
   } catch {
     return NextResponse.json({ entries: [], error: 'Database unavailable' }, { status: 200 })

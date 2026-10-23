@@ -16,12 +16,12 @@ function getDb() {
   return neon(url)
 }
 
-export async function getTopScores(gameSlug: string, limit = 15): Promise<LeaderboardEntry[]> {
+export async function getTopScores(gameSlug: string, limit = 15, level?: number): Promise<LeaderboardEntry[]> {
   const sql = getDb()
   const rows = await sql`
     SELECT id, game_slug, player_name, score, kills, level, created_at
     FROM leaderboard
-    WHERE game_slug = ${gameSlug}
+    WHERE game_slug = ${gameSlug} AND (${level ?? null}::int IS NULL OR level = ${level ?? null}::int)
     ORDER BY score DESC, kills DESC, created_at ASC
     LIMIT ${limit}
   `

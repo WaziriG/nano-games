@@ -37,6 +37,7 @@ export function GameFrame({ slug }: { slug: string }) {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const [levelFilter, setLevelFilter] = useState<number | null>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   /* On-demand games are asked for their standing; the reply comes back
@@ -48,10 +49,11 @@ export function GameFrame({ slug }: { slug: string }) {
     )
   }
 
-  const fetchLeaderboard = useCallback(async () => {
+  const fetchLeaderboard = useCallback(async (level: number | null = null) => {
     setLoadingLB(true)
     try {
-      const res = await fetch(`/api/leaderboard?game=${slug}&limit=15`)
+      const levelQuery = level === null ? '' : `&level=${level}`
+      const res = await fetch(`/api/leaderboard?game=${slug}&limit=15${levelQuery}`)
       const data = await res.json()
       setLeaderboard(data.entries ?? [])
     } catch {
@@ -110,7 +112,7 @@ export function GameFrame({ slug }: { slug: string }) {
         throw new Error(err.error ?? 'Failed to submit')
       }
       setSubmitted(true)
-      await fetchLeaderboard()
+      await fetchLeaderboard(levelFilter)
     } catch (err: unknown) {
       setSubmitError(err instanceof Error ? err.message : 'Could not save score')
     } finally {
@@ -120,10 +122,17 @@ export function GameFrame({ slug }: { slug: string }) {
 
   function openLeaderboard() {
     setShowLeaderboard(true)
-    fetchLeaderboard()
+    fetchLeaderboard(levelFilter)
+  }
+
+  function chooseLevelFilter(level: number | null) {
+    setLevelFilter(level)
+    fetchLeaderboard(level)
   }
 
   const labels = board?.statLabels
+  const levelNames = board?.levelNames
+  const levelText = (level: number) => levelNames?.[level - 1] ?? String(level)
 
   return (
     <div className="flex flex-col" style={{ height: '100dvh', background: '#080e14' }}>
@@ -222,7 +231,7 @@ export function GameFrame({ slug }: { slug: string }) {
                 >
                   <StatCell accent={accent} label={labels.score} value={String(gameResult.score)} />
                   <StatCell accent={accent} label={labels.kills} value={String(gameResult.kills)} />
-                  <StatCell accent={accent} label={labels.level} value={String(gameResult.level)} />
+                  <StatCell accent={accent} label={labels.level} value={levelText(gameResult.level)} />
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -334,6 +343,27 @@ export function GameFrame({ slug }: { slug: string }) {
               </button>
             </div>
 
+            {levelNames && (
+              <div className="flex flex-wrap gap-2 px-4 py-3" style={{ borderBottom: `1px solid rgba(${rgb},0.15)` }}>
+                {[null, ...levelNames.map((_, i) => i + 1)].map(level => (
+                  <button
+                    key={level ?? 'all'}
+                    onClick={() => chooseLevelFilter(level)}
+                    aria-pressed={levelFilter === level}
+                    className="font-pixel cursor-pointer rounded min-h-11 px-3"
+                    style={{
+                      fontSize: '12px',
+                      color: levelFilter === level ? '#080e14' : accent,
+                      background: levelFilter === level ? accent : 'transparent',
+                      border: `1px solid rgba(${rgb},0.5)`,
+                    }}
+                  >
+                    {level === null ? 'ALL' : levelText(level)}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div className="overflow-y-auto" style={{ maxHeight: '420px' }}>
               {loadingLB ? (
                 <div className="font-pixel text-center py-12" style={{ fontSize: '12px', color: 'var(--muted)' }}>
@@ -381,7 +411,7 @@ export function GameFrame({ slug }: { slug: string }) {
                             {entry.kills}
                           </td>
                           <td className="font-pixel px-4 py-3" style={{ fontSize: '12px', color: 'var(--foam)', opacity: 0.7 }}>
-                            {entry.level}
+                            {levelText(entry.level)}
                           </td>
                         </tr>
                       ))}
@@ -399,7 +429,7 @@ export function GameFrame({ slug }: { slug: string }) {
                 Sorted by {labels.score.toLowerCase()}
               </div>
               <button
-                onClick={fetchLeaderboard}
+                onClick={() => fetchLeaderboard(levelFilter)}
                 className="font-pixel cursor-pointer"
                 style={{ fontSize: '12px', color: accent, background: 'none', border: 'none' }}
               >

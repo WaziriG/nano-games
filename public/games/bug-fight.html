@@ -330,12 +330,17 @@ const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function mkF(id,isP){return{id,d:BUGS[id],isP,x:0,y:0,vx:0,vy:0,kx:0,ky:0,hp:BUGS[id].hp,a:0,atkT:0,atkAnim:0,spT:1.2,root:0,zombie:0,zt:0,zx:0,zy:0,
   shine:0,stun:0,dash:0,slow:0,fly:13,rest:0,dashHit:false,lunge:0,lungeV:0,lungeType:'',jaw:0,flash:0,walk:0,trail:[],ai:{t:0,str:1,mode:'chase'}};}
 
+/* NANO GAMES SCORE HOOK: a run is fights won in a row; a lost fight ends it and posts to the arcade leaderboard. */
+let run={wins:0,score:0};
+function postRun(reason){
+  try{window.parent.postMessage({type:'nano-game-over',game:'bug-fight',score:run.score,kills:run.wins,level:ORDER.indexOf(game.pid)+1,reason},'*');}catch(_){}
+}
 function startRun(pid){
   const ladder=ORDER.filter(x=>x!==pid);
   game={pid,ladder,idx:0};startMatch();
 }
 function startMatch(){
-  const G=game;G.fs=[mkF(G.pid,true),mkF(G.ladder[G.idx],false)];G.wins=[0,0];G.round=0;G.proj=[];G.parts=[];G.nums=[];
+  const G=game;G.fs=[mkF(G.pid,true),mkF(G.ladder[G.idx],false)];G.wins=[0,0];G.round=0;G.matchT=0;/* NANO GAMES SCORE HOOK */G.proj=[];G.parts=[];G.nums=[];
   $('#sel').hidden=true;$('#msg').hidden=true;$('#hud').hidden=false;$('#pad').hidden=!isTouch;
   $('#pN').textContent=BUGS[G.pid].name;$('#eN').textContent=BUGS[G.ladder[G.idx]].name;
   $('#pSn').textContent=BUGS[G.pid].sp.name;$('#bSpL').textContent=BUGS[G.pid].sp.btn;
@@ -457,7 +462,7 @@ function update(dt){
   const d=dt*(G.phase==='ko'?.35:1),[p,e]=G.fs;
   spQ=Math.max(0,spQ-dt);
   if(G.phase==='intro'&&G.t>1.5){G.phase='fight';G.t=0;}
-  const fight=G.phase==='fight';
+  const fight=G.phase==='fight';if(fight)G.matchT+=dt;/* NANO GAMES SCORE HOOK */
   const pS=e.slow>0?.35:1,eS=p.slow>0?.35:1;
   step(p,e,fight?playerInput():{x:0,y:0},d*pS);
   step(e,p,fight?aiInput(e,p,d*eS,G.idx):{x:0,y:0},d*eS);
@@ -477,7 +482,10 @@ function update(dt){
 }
 function roundOver(){
   const G=game;G.wins[G.koW]++;pips();
-  if(G.wins[0]>=2){G.idx++;if(G.idx>=G.ladder.length)showMsg('champ');else{sfx('win');showMsg('next');}}
+  /* NANO GAMES SCORE HOOK */
+  if(G.wins[0]>=2){run.wins++;run.score+=1000+Math.max(0,Math.round(500-G.matchT*5))+(G.wins[1]===0?250:0);}
+  else if(G.wins[1]>=2){G.runOver={...run};postRun('dead');run={wins:0,score:0};}
+  if(G.wins[0]>=2){G.idx++;if(G.idx>=G.ladder.length){showMsg('champ');postRun('win');}else{sfx('win');showMsg('next');}}
   else if(G.wins[1]>=2)showMsg('lose');
   else newRound();
 }
@@ -560,7 +568,7 @@ function choose(id){pick=id;for(const p of ports)document.getElementById('card-'
 function drawPort(c,id,t,active){const x=c.getContext('2d');x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,c.width,c.height);
   const s=c.width/140;x.setTransform(s,0,0,s,0,0);E(x,72,62,26,12,'rgba(0,0,0,.3)');
   drawBug(x,id,70,id==='dragonfly'?46:52,-.45+(active?Math.sin(t*2)*.12:0),2.05,{walk:active?t*9:0,t,jaw:0,moving:active});}
-function showSelect(){game=null;$('#hud').hidden=true;$('#pad').hidden=true;$('#msg').hidden=true;$('#sel').hidden=false;$('#sel').scrollTop=0;}
+function showSelect(){run={wins:0,score:0};/* NANO GAMES SCORE HOOK */game=null;$('#hud').hidden=true;$('#pad').hidden=true;$('#msg').hidden=true;$('#sel').hidden=false;$('#sel').scrollTop=0;}
 function showMsg(kind){
   const G=game,me=BUGS[G.pid];$('#hud').hidden=true;$('#pad').hidden=true;$('#msg').hidden=false;$('#msg').scrollTop=0;
   let ey,ti,tx,port,btns;
@@ -571,6 +579,7 @@ function showMsg(kind){
     btns=[['Pick a bug','btn',showSelect],['Run it back','btn ghost',()=>startRun(G.pid)]];sfx('win');}
   else{const en=BUGS[G.ladder[G.idx]];port=G.ladder[G.idx];ey='Knocked out';ti=`The ${en.name} wins`;tx=`Tip: ${en.tip}`;
     btns=[['Retry fight','btn',()=>startMatch()],['Pick a bug','btn ghost',showSelect]];}
+  {const r=kind==='lose'?G.runOver:run;if(r&&r.wins)tx+=` Score: ${r.score.toLocaleString()} · ${r.wins} ${r.wins===1?'win':'wins'} in a row.`;}/* NANO GAMES SCORE HOOK */
   $('#mEy').textContent=ey;$('#mT').textContent=ti;$('#mTx').textContent=tx;msgPort=port;
   $('#mLad').innerHTML=G.ladder.map((id,i)=>{const st=i<G.idx?'done':i===G.idx&&kind!=='champ'?'next':'';
     return`<li class="${st}"><span>${String(i+1).padStart(2,'0')}</span><span>${BUGS[id].name}</span><em>${st==='done'?'Beaten':st==='next'?(kind==='lose'?'Retry':'Next'):'Waiting'}</em></li>`;}).join('');
