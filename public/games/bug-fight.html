@@ -484,7 +484,7 @@ function roundOver(){
   const G=game;G.wins[G.koW]++;pips();
   /* NANO GAMES SCORE HOOK */
   if(G.wins[0]>=2){run.wins++;run.score+=1000+Math.max(0,Math.round(500-G.matchT*5))+(G.wins[1]===0?250:0);}
-  else if(G.wins[1]>=2){G.runOver={...run};postRun('dead');run={wins:0,score:0};}
+  else if(G.wins[1]>=2){G.runOver={...run};if(run.wins)postRun('dead');run={wins:0,score:0};}
   if(G.wins[0]>=2){G.idx++;if(G.idx>=G.ladder.length){showMsg('champ');postRun('win');}else{sfx('win');showMsg('next');}}
   else if(G.wins[1]>=2)showMsg('lose');
   else newRound();
