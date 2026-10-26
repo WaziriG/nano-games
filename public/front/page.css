@@ -193,7 +193,9 @@ a { color: var(--aqua); text-underline-offset: 3px; }
 /* ---------- 8 · GAME SELECT ---------- */
 .scene--select { background: radial-gradient(ellipse at 50% 0%, #0d2040 0%, #080e14 60%); overflow: hidden; }
 .doors { position: absolute; inset: 0; z-index: 40; pointer-events: none; }
-.doors > div { position: absolute; top: 0; bottom: 0; width: 51%; background-color: #04070b; background-size: cover; background-position: center; background-repeat: no-repeat; will-change: transform; }
+/* one screen tall, not the whole scene: a door as tall as the phone grid is a layer
+   past the size iOS Safari will repaint when it moves, so the doors froze shut there */
+.doors > div { position: absolute; top: 0; height: 100vh; height: 100svh; width: 51%; background-color: #04070b; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .doors__l { left: 0; background-image: url(/front/door-l.jpg); border-right: 2px solid rgba(63,210,230,.35); box-shadow: 8px 0 30px rgba(0,0,0,.6); }
 .doors__r { right: 0; background-image: url(/front/door-r.jpg); border-left: 2px solid rgba(63,210,230,.35); box-shadow: -8px 0 30px rgba(0,0,0,.6); }
 .doors.is-open { visibility: hidden; }

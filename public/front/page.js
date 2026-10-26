@@ -112,9 +112,24 @@
     var vh = innerHeight
     /* linear and mechanical, like real cabinet doors on a track */
     var p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.55)))
-    doorL.style.transform = 'translateX(' + (-102 * p) + '%)'
-    doorR.style.transform = 'translateX(' + (102 * p) + '%)'
-    doors.classList.toggle('is-open', p >= 1)
+    if (p >= 1) { openDoors(); return }
+    doorL.style.transform = 'translate3d(' + (-102 * p) + '%,0,0)'
+    doorR.style.transform = 'translate3d(' + (102 * p) + '%,0,0)'
+  }
+  /* once open, the doors stay open: the games must never be shut away again */
+  var doorsOpen = false
+  function openDoors() {
+    if (doorsOpen || !doors) return
+    doorsOpen = true
+    doorL.style.transform = 'translate3d(-102%,0,0)'
+    doorR.style.transform = 'translate3d(102%,0,0)'
+    doors.classList.add('is-open')
+  }
+  /* backstop for browsers that drop scroll frames during touch momentum */
+  if (selectScene && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting && e.boundingClientRect.top < innerHeight * 0.5) openDoors() })
+    }, { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5] }).observe(selectScene)
   }
 
   /* ---------- NANO PILOT: the wheel is the joystick ---------- */
@@ -283,7 +298,7 @@
   function onScroll() {
     if (ticking) return
     ticking = true
-    requestAnimationFrame(function () { driveDoors(); ticking = false })
+    requestAnimationFrame(function () { if (!doorsOpen) driveDoors(); ticking = false })
   }
   addEventListener('scroll', onScroll, { passive: true })
   addEventListener('resize', onScroll)
